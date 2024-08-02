@@ -23,7 +23,7 @@ void draw(){
 
 void  startGame(){
     cout<<endl;
-    cout<<"< Welcome to The Tic-Tac-Toe Online game >" <<endl;
+    cout<<"                   Welcome To Tic-Tac-Toe Game Developed by Shubham Maurya " <<endl;
     draw();
     cout<<"Enter the name of player 1: ";
     getline(cin, s1);
@@ -43,7 +43,7 @@ bool isvalid(){
     return (row<3 and col<3 and row>=0 and col>=0 and space[row][col]==' '); 
 
 }
-void playGame(){
+int playGame(){
     bool flag = false;
     for(int i = 0; i<9; i++){
         if(i%2==0){
@@ -74,28 +74,32 @@ void playGame(){
         }
         for(int i = 0; i<3; i++){
             if(space[i][0]=='X' and space[i][1]=='X' and space[i][2]=='X'){
-                cout<<s1<<" WIN!!!"<<endl;;
+                cout<<s1<<" WIN!!!"<<endl;
                 // draw();
                 flag = true;
-                break;
+                return 1;
+                // break;
             }
             else if(space[0][i]=='X' and space[1][i]=='X' and space[2][i]=='X'){
                 cout<<s1<<" WIN!!!"<<endl;;
                 // draw();
                 flag = true;
-                break;
+                return 1;
+                // break;
             }
             else if(space[i][0]=='O' and space[i][1]=='O' and space[i][2]=='O'){
                 cout<<s2<<" WIN!!!"<<endl;;
                 // draw();
                 flag = true;
-                break;
+                return 2;
+                // break;
             }
             else if(space[0][i]=='O' and space[1][i]=='O' and space[2][i]=='O'){
                 cout<<s2<<" WIN!!!"<<endl;;
                 // draw();
                 flag = true;
-                break;
+                return 2;
+                // break;
             }
         }
         if(flag){
@@ -105,25 +109,29 @@ void playGame(){
             cout<<" "<<s1<<" WIN!!!"<<endl;;
             // draw();
             flag = true;
-            break;
+            return 1;
+            // break;
         }
         else if(space[0][2]=='X' and space[1][1]=='X' and space[2][0]=='X'){
             cout<<" "<<s1<<" WIN!!!"<<endl;;
             // draw();
             flag = true;
-            break;
+            return 1;
+            // break;
         }
         else if(space[0][0]=='O' and space[1][1]=='O' and space[2][2]=='O'){
             cout<<" "<<s2<<" WIN!!!"<<endl;;
             // draw();
             flag = true;
-            break;
+            return 2;
+            // break;
         }
         else if(space[0][2]=='O' and space[1][1]=='O' and space[2][0]=='O'){
             cout<<" "<<s2<<" WIN!!!"<<endl;;
             // draw();
             flag = true;
-            break;
+            return 2;
+            // break;
         }
     }
     if(!flag){
@@ -131,7 +139,13 @@ void playGame(){
         // draw();
     }
 }
-
+void reset(){
+    for(int i = 0; i<3; i++){
+        for(int j = 0; j<3; j++){
+            space[i][j] = ' ';
+        }
+    }
+}
 
 
 
@@ -140,6 +154,20 @@ void playGame(){
 int main(){
     startGame();
     cout<<endl;
-    playGame();
+    int flag = 1;
+    int p1 = 0;
+    int p2 = 0;
+    while(flag){
+        int c = playGame();
+        if(c==1) p1++;
+        else if(c==2) p2++;
+        cout<<"Do you want to continue (0/1) ";
+        cin>>flag;
+        reset();
+    } 
+    cout<<endl;
+    cout<<"-------------Thanks You for Playing Tic-tac-toe game---------------"<<endl;
+    cout<<"Score for "<<s1<<" -> "<< p1 <<endl;
+    cout<<"Score for "<<s2<<" -> "<< p2 <<endl;
     return 0;
 }
